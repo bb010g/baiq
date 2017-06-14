@@ -1,0 +1,38 @@
+[package]
+authors = ["Brayden Banks <bb010g@gmail.com>"]
+categories = []
+description = "Graphical BAI query tool"
+keywords = ["bai"]
+license = "MIT/Apache-2.0"
+name = "baiq-gui"
+readme = "README.md"
+repository = "https://github.com/bb010g/baiq"
+version = "0.1.0"
+workspace = ".."
+
+[badges]
+
+[badges.travis-ci]
+repository = "bb010g/baiq"
+
+[dependencies]
+chrono = "0.3.1"
+clap = "~2.24.0"
+iup-sys = "0.0.3"
+penny = "0.1.0"
+serde = "1.0.8"
+serde_json = "1.0.2"
+
+[dependencies.baimax]
+path = "../../baimax"
+
+[dependencies.clear-coat]
+git = "https://github.com/jminer/clear-coat"
+
+[dependencies.clippy]
+optional = true
+version = "^0"
+
+[features]
+default = ["lint"]
+lint = ["clippy"]

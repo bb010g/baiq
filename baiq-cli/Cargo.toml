@@ -1,27 +1,29 @@
 [package]
 authors = ["Brayden Banks <bb010g@gmail.com>"]
 description = "Command-line BAI query tool"
+categories = []
+keywords = ["bai"]
 license = "MIT/Apache-2.0"
-name = "baiq"
+name = "baiq-cli"
 readme = "README.md"
-repository = "https://github.com/bb010g/baimax.git"
+repository = "https://github.com/bb010g/baiq"
 version = "0.1.0"
+workspace = ".."
+
+[badges.travis-ci]
+repository = "bb010g/baiq"
 
 [dependencies]
+baimax = { path = "../../baimax" }
 chrono = "0.3.1"
 clap = "~2.24.0"
+penny = "0.1.0"
 serde = "1.0.8"
 serde_json = "1.0.2"
-
-[dependencies.baimax]
-path = "../baimax"
 
 [dependencies.clippy]
 optional = true
 version = "*"
-
-[dependencies.penny]
-path = "../penny"
 
 [features]
 default = []
