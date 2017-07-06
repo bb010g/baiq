@@ -1,6 +1,2 @@
 [workspace]
-members = ["baiq-cli", "baiq-gui"]
-
-[replace]
-"baimax:0.1.0" = { path = "../baimax" }
-"penny:0.1.0" = { path = "../penny" }
+members = ["baiq-cli", "baiq-web"]

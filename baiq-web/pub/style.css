@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    box-sizing: content-box;
+    margin: 0.5em auto;
+    max-width: 50em;
+    padding: 0 0.5em;
+}
+
+h1 {
+    margin: 0.75em auto;
+}
+h2 {
+    margin: 0.6em auto;
+}
+
+a {
+    text-decoration: none;
+    color: midnightblue;
+}
+a:hover { text-decoration: underline; }
+a:visited {
+    color: midnightblue;
+}
+
+body > header {
+    text-align: center;
+}
+
+textarea {
+    font-family: sans-serif;
+}

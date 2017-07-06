@@ -5,16 +5,15 @@ extern crate baimax;
 extern crate chrono;
 #[macro_use]
 extern crate clap;
+extern crate nom;
 extern crate penny;
 extern crate serde;
 extern crate serde_json;
 
 use std::fs::File;
 use std::io;
-use std::io::Read;
+use std::io::{Read, Write};
 
-use baimax::ast;
-use baimax::ast::parse::Parsed;
 use clap::{AppSettings, Arg};
 
 enum Format {
@@ -64,20 +63,6 @@ fn main() {
         )
         .get_matches();
 
-    let end_of_day = args.value_of("end-of-day").expect(
-        "No end-of-day time specified.",
-    );
-    let end_of_day = {
-        let (hour, rest) = end_of_day.split_at(2);
-        let (rest, minute) = rest.split_at(1);
-        if rest != ":" {
-            panic!(": expected in end-of-day time.")
-        }
-        let hour = hour.parse().expect("Invalid end-of-day hour.");
-        let minute = minute.parse().expect("Invalid end-of-day minute.");
-        chrono::NaiveTime::from_hms(hour, minute, 0)
-    };
-
     let path = args.value_of("path").expect("No path supplied");
     let file = File::open(path).expect("No file found at path");
 
@@ -89,30 +74,25 @@ fn main() {
         Format::Pretty
     };
 
-    let bytes = file.bytes().collect::<Result<Vec<_>, _>>().expect(
-        "Byte reading error",
-    );
-    let raw_records = baimax::parse::file(bytes.as_slice()).to_result().expect(
-        "Syntax error",
-    );
-    let file = {
-        let mut parsed_records = raw_records.iter().map(|r| {
-            ast::Record::parse(r).expect("Field syntax error")
-        });
-        ast::convert::convert(&mut parsed_records, &end_of_day)
-    }.expect("Error converting record");
+    let bytes = file.bytes()
+        .collect::<Result<Vec<_>, _>>()
+        .expect("Byte reading error");
 
-    match format {
-        Format::Pretty => {
-            println!("{}", file);
-        }
+    let file = baimax::data::File::process(bytes.as_slice());
+    let file = file.expect("Processing error");
+
+    let mut stdout = io::stdout();
+    let _ = match format {
+        Format::Pretty => writeln!(stdout, "{}", file).or(Err(())),
         Format::Json => {
-            serde_json::to_writer(io::stdout(), &file).unwrap();
-            println!();
+            serde_json::to_writer(&mut stdout, &file)
+                .or(Err(()))
+                .and_then(|()| writeln!(&mut stdout).or(Err(())))
         }
         Format::JsonPretty => {
-            serde_json::to_writer_pretty(io::stdout(), &file).unwrap();
-            println!();
+            serde_json::to_writer_pretty(&mut stdout, &file)
+                .or(Err(()))
+                .and_then(|()| writeln!(&mut stdout).or(Err(())))
         }
-    }
+    };
 }

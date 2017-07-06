@@ -1,10 +1,10 @@
 [package]
 authors = ["Brayden Banks <bb010g@gmail.com>"]
 categories = []
-description = "Graphical BAI query tool"
+description = "Web-based BAI query tool"
 keywords = ["bai"]
 license = "MIT/Apache-2.0"
-name = "baiq-gui"
+name = "baiq-web"
 readme = "README.md"
 repository = "https://github.com/bb010g/baiq"
 version = "0.1.0"
@@ -16,22 +16,31 @@ workspace = ".."
 repository = "bb010g/baiq"
 
 [dependencies]
-chrono = "0.3.1"
-clap = "~2.24.0"
-iup-sys = "0.0.3"
+baimax = "0.1.0"
+chrono = "0.4.0"
+maud_macros = "0.16.3"
 penny = "0.1.0"
+rocket = "0.2.8"
+rocket_codegen = "0.2.8"
+rocket_contrib = "0.2.8"
 serde = "1.0.8"
 serde_json = "1.0.2"
-
-[dependencies.baimax]
-path = "../../baimax"
-
-[dependencies.clear-coat]
-git = "https://github.com/jminer/clear-coat"
 
 [dependencies.clippy]
 optional = true
 version = "^0"
+
+[dependencies.maud]
+features = ["rocket"]
+version = "0.16.2"
+
+[dependencies.multipart]
+default-features = false
+features = ["server"]
+version = "0.13.1"
+
+[dependencies.rocket_json]
+path = "../rocket_json"
 
 [features]
 default = ["lint"]
