@@ -32,15 +32,25 @@ use rocket_json::JSON;
 
 #[get("/")]
 fn index() -> Markup {
-    html! { (STYLE)
+    html! { (NORMALIZE) (STYLE)
+        Title("baiq")
         header {
             h1 "baiq"
             h2 "BAI query tool"
         }
         form action="pretty" enctype="multipart/form-data" method="post" target="_blank" {
-            label for="bai" "BAI file:"
-            input required? type="file" name="bai" accept=".bai,.txt" /
-            input type="submit" /
+            fieldset {
+                legend "Pretty-print a BAI file"
+
+                div class="control-group" {
+                    label for="bai" "File"
+                    input required? type="file" name="bai" accept=".bai,.txt" /
+                }
+
+                div class="controls" {
+                    button type="submit" "Pretty-print"
+                }
+            }
         }
     }
 }
@@ -154,6 +164,7 @@ fn main() {
 }
 
 pub struct Css<T: AsRef<str>>(pub T);
+const NORMALIZE: Css<&'static str> = Css("/pub/normalize.css");
 const STYLE: Css<&'static str> = Css("/pub/style.css");
 impl<T: AsRef<str>> Render for Css<T> {
     fn render(&self) -> Markup {

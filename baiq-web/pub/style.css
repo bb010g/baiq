@@ -1,35 +1,49 @@
-* {
-    box-sizing: border-box;
-}
+/* Pulls from Yahoo's Pure, licensed under the BSD 3-clause. */
+
+* { box-sizing: border-box; }
 
 body {
-    font-family: sans-serif;
     box-sizing: content-box;
+    font-family: sans-serif;
     margin: 0.5em auto;
     max-width: 50em;
     padding: 0 0.5em;
 }
 
-h1 {
-    margin: 0.75em auto;
-}
-h2 {
-    margin: 0.6em auto;
-}
-
-a {
-    text-decoration: none;
-    color: midnightblue;
-}
+a { color: midnightblue; text-decoration: none; }
 a:hover { text-decoration: underline; }
-a:visited {
-    color: midnightblue;
-}
+a:visited { color: midnightblue; }
 
-body > header {
-    text-align: center;
-}
+body > header { text-align: center; }
 
-textarea {
-    font-family: sans-serif;
+/* Based on Pure .pure-form-stacked */
+.control-group { margin-bottom: 0.5em; }
+.control-group label {
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+    width: 10em;
+    margin: 0 1em 0 0;
 }
+.controls {
+    margin: 1.5em 0 0 11em;
+}
+fieldset { margin: 0; padding: 0.35em 0 0.75em; border: 0; }
+input /* doesn't handle type="color" correctly */, textarea {
+    box-sizing: border-box;
+    display: inline-block;
+    *display: inline;
+    margin: 0.25em 0;
+    padding: 0.5em 0 0.6em;
+    vertical-align: middle;
+    *zoom: 1;
+}
+label { margin: 0.5em 0 0.2em }
+legend {
+    border-bottom: 1px solid #e5e5e5;
+    display: block;
+    margin-bottom: 0.3em;
+    padding: 0.3em 0;
+    width: 100%;
+}
+textarea { font-family: sans-serif; }
