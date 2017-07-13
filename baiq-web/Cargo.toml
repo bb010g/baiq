@@ -43,5 +43,5 @@ version = "0.13.1"
 path = "../rocket_json"
 
 [features]
-default = ["lint"]
+default = []
 lint = ["clippy"]
